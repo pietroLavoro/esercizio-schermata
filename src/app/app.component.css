@@ -1,0 +1,300 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.toolbar .p-inputtext {
+  min-width: 250px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 160px;
+}
+
+.filter-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.filters .p-inputtext,
+.filters .p-select {
+  min-width: 160px;
+}
+
+.azioni {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.azioni button {
+  margin: 0;
+}
+
+.dlg-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  align-items: center;
+}
+
+.dlg-row .lbl {
+  width: 10rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Personalizzazione della tabella */
+:host ::ng-deep .p-datatable {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+:host ::ng-deep .p-datatable .p-datatable-header {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background: #f9fafb;
+}
+
+/* Personalizzazione dei tag per stati */
+:host ::ng-deep .p-tag {
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.375rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+:host ::ng-deep .p-tag.p-tag-success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+:host ::ng-deep .p-tag.p-tag-success i {
+  color: #166534;
+  font-size: 0.875rem;
+}
+
+:host ::ng-deep .p-tag.p-tag-danger {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+:host ::ng-deep .p-tag.p-tag-danger i {
+  color: #dc2626;
+  font-size: 0.875rem;
+}
+
+/* Personalizzazione bottoni */
+:host ::ng-deep .p-button {
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+:host ::ng-deep .p-button.p-button-rounded {
+  border-radius: 9999px;
+}
+
+/* Personalizzazione input */
+:host ::ng-deep .p-inputtext {
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+}
+
+:host ::ng-deep .p-inputtext:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Personalizzazione select */
+:host ::ng-deep .p-select {
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+}
+
+:host ::ng-deep .p-select:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Personalizzazione paginazione */
+:host ::ng-deep .p-paginator {
+  background: #ffffff;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem;
+}
+
+/* Stili per il form di modifica */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.form-input {
+  width: 100%;
+}
+
+/* Personalizzazione dialog di modifica */
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Fix per il dropdown nel dialog */
+:host ::ng-deep .p-dialog .p-select {
+  position: relative;
+  z-index: 1000;
+}
+
+:host ::ng-deep .p-select-overlay {
+  z-index: 9999 !important;
+  min-width: 160px;
+}
+
+:host ::ng-deep .p-select-list {
+  padding: 0.5rem 0;
+}
+
+:host ::ng-deep .p-select-option {
+  padding: 0.75rem 1rem;
+  margin: 0;
+}
+
+:host ::ng-deep .p-select-option:hover {
+  background: #f3f4f6;
+}
+
+/* Assicuriamo che il dialog abbia z-index appropriato */
+:host ::ng-deep .p-dialog {
+  z-index: 1100;
+}
+
+:host ::ng-deep .p-dialog-mask {
+  z-index: 1099;
+}
+
+/* Miglioriamo la visualizzazione del select nel form */
+.form-group .p-select {
+  width: 100%;
+}
+
+/* Stili per il form di inserimento */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.form-input {
+  width: 100%;
+}
+
+/* Stili specifici per il datepicker con icona posizionata correttamente */
+:host ::ng-deep .form-group .p-input-icon-right {
+  position: relative;
+}
+
+:host ::ng-deep .form-group .p-input-icon-right > i {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+  z-index: 10;
+}
+
+:host ::ng-deep .form-group .p-input-icon-right .p-datepicker .p-inputtext {
+  padding-right: 2.5rem;
+}
+
+/* Fix per overlay del datepicker */
+:host ::ng-deep .p-datepicker-overlay {
+  z-index: 9999 !important;
+}
+
+/* Footer del dialog */
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}

@@ -1,0 +1,63 @@
+/* Stili globali */
+@import "primeicons/primeicons.css";
+
+html,
+body {
+  height: 100%;
+  background: #f8f9fa;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background: #f8f9fa;
+  color: #1f2937;
+}
+
+.container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 2rem 0;
+  color: #111827;
+  letter-spacing: -0.025em;
+}
+
+/* Estilos para la sección del elenco con fondo blanco */
+.agency-table-section {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-top: 1rem;
+}
+
+/* Asegurar que PrimeNG Table tenga fondo transparente para mostrar el blanco */
+::ng-deep .p-datatable {
+  background: transparent !important;
+}
+
+::ng-deep .p-datatable .p-datatable-wrapper {
+  background: transparent !important;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: #f8f9fa !important;
+  border-color: #e5e7eb !important;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr {
+  background: #ffffff !important;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background: #fafbfc !important;
+}

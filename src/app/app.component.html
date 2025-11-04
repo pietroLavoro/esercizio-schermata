@@ -1,0 +1,322 @@
+<div class="container">
+  <div class="header">{{ titolo }}</div>
+
+  <div class="agency-table-section">
+    <p-table
+    [value]="agenzieFiltrate"
+    [tableStyle]="{ 'min-width': '64rem' }"
+    [paginator]="true"
+    [rows]="8"
+    [sortMode]="'multiple'"
+  >
+    <ng-template pTemplate="caption">
+      <div class="filters">
+        <div class="filter-group">
+          <label class="filter-label">Codice</label>
+          <input
+            pInputText
+            type="text"
+            placeholder="Filtra Codice"
+            [(ngModel)]="filtroCodice"
+          />
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Denominazione</label>
+          <input
+            pInputText
+            type="text"
+            placeholder="Filtra Denominazione"
+            [(ngModel)]="filtroDenominazione"
+          />
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Data Nomina</label>
+          <p-datepicker
+            [(ngModel)]="filtroData"
+            placeholder="Seleziona data"
+            [showIcon]="true"
+            iconDisplay="input"
+            dateFormat="dd/mm/yy"
+            [showClear]="true"
+            [showButtonBar]="true"
+          ></p-datepicker>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Stato</label>
+          <p-select
+            [options]="stati"
+            [(ngModel)]="filtroStato"
+            placeholder="Tutti"
+            optionLabel="label"
+            optionValue="value"
+          ></p-select>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="codice">Codice <p-sortIcon field="codice" /></th>
+        <th pSortableColumn="denominazione">
+          Denominazione <p-sortIcon field="denominazione" />
+        </th>
+        <th pSortableColumn="dataNomina">
+          Data Nomina <p-sortIcon field="dataNomina" />
+        </th>
+        <th pSortableColumn="stato">Stato <p-sortIcon field="stato" /></th>
+        <th style="width: 10rem">Azioni</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-a>
+      <tr>
+        <td>{{ a.codice }}</td>
+        <td>{{ a.denominazione }}</td>
+        <td>{{ a.dataNomina | date : "dd/MM/yyyy" }}</td>
+        <td>
+          <p-tag [severity]="statoSeverita(a.stato)">
+            <i [class]="statoIcon(a.stato)"></i>
+            {{ a.stato }}
+          </p-tag>
+        </td>
+        <td class="azioni">
+          <button
+            pButton
+            pTooltip="Dettagli"
+            icon="pi pi-user"
+            class="p-button-rounded p-button-text"
+            (click)="apriDialog(a)"
+          ></button>
+          <button
+            pButton
+            pTooltip="Modifica"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text"
+            (click)="apriDialogModifica(a)"
+          ></button>
+          <button
+            pButton
+            pTooltip="Vai"
+            icon="pi pi-arrow-right"
+            class="p-button-rounded p-button-text"
+          ></button>
+          <button
+            pButton
+            pTooltip="Elimina"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="elimina(a)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  </div>
+
+  <div style="margin-top: 1rem">
+    <button
+      pButton
+      label="Inserisci"
+      icon="pi pi-plus"
+      severity="primary"
+      (click)="apriDialogInserisci()"
+    ></button>
+  </div>
+
+  <p-dialog
+    [(visible)]="dialogVisibile"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [style]="{ width: '32rem' }"
+    header="Dettaglio Agenzia"
+  >
+    <ng-container *ngIf="selezionata as s">
+      <div class="dlg-row">
+        <span class="lbl">Codice:</span> <span>{{ s.codice }}</span>
+      </div>
+      <div class="dlg-row">
+        <span class="lbl">Denominazione:</span>
+        <span>{{ s.denominazione }}</span>
+      </div>
+      <div class="dlg-row">
+        <span class="lbl">Data Nomina:</span>
+        <span>{{ s.dataNomina | date : "dd/MM/yyyy" }}</span>
+      </div>
+      <div class="dlg-row">
+        <span class="lbl">Stato:</span>
+        <p-tag [severity]="statoSeverita(s.stato)">
+          <i [class]="statoIcon(s.stato)"></i>
+          {{ s.stato }}
+        </p-tag>
+      </div>
+    </ng-container>
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Chiudi"
+        icon="pi pi-times"
+        (click)="chiudiDialog()"
+      ></button>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Dialog di Modifica -->
+  <p-dialog
+    [(visible)]="dialogModificaVisibile"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [style]="{ width: '40rem' }"
+    header="Modifica Agenzia"
+  >
+    <ng-container *ngIf="agenziaInModifica as a">
+      <div class="form-container">
+        <div class="form-group">
+          <label class="form-label">Codice:</label>
+          <input
+            pInputText
+            type="number"
+            [(ngModel)]="a.codice"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Denominazione:</label>
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="a.denominazione"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Data Nomina:</label>
+          <input
+            pInputText
+            type="date"
+            [(ngModel)]="a.dataNomina"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Stato:</label>
+          <p-select
+            [options]="stati"
+            [(ngModel)]="a.stato"
+            class="form-input"
+            placeholder="Seleziona stato"
+            [appendTo]="'body'"
+            [showClear]="false"
+            optionLabel="label"
+            optionValue="value"
+            [filter]="false"
+          ></p-select>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Annulla"
+        icon="pi pi-times"
+        severity="secondary"
+        (click)="annullaModifica()"
+      ></button>
+      <button
+        pButton
+        label="Salva"
+        icon="pi pi-check"
+        severity="primary"
+        (click)="salvaModifica()"
+      ></button>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Dialog per Inserire Nuova Agenzia -->
+  <p-dialog
+    [(visible)]="dialogInserisciVisibile"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [style]="{ width: '40rem' }"
+    header="Inserisci Nuova Agenzia"
+  >
+    <div class="form-container">
+      <div class="form-group">
+        <label class="form-label">Codice:</label>
+        <input
+          pInputText
+          type="number"
+          [(ngModel)]="nuovaAgenzia.codice"
+          class="form-input"
+          placeholder="Inserisci codice"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Denominazione:</label>
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="nuovaAgenzia.denominazione"
+          class="form-input"
+          placeholder="Inserisci denominazione"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Data Nomina:</label>
+        <span class="p-input-icon-right">
+          <i class="pi pi-calendar"></i>
+          <p-datepicker
+            [(ngModel)]="nuovaAgenzia.dataNomina"
+            placeholder="Seleziona data"
+            dateFormat="dd/mm/yy"
+            [showClear]="true"
+            [showButtonBar]="true"
+            [appendTo]="'body'"
+            class="form-input"
+          ></p-datepicker>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Stato:</label>
+        <p-select
+          [options]="statiInserimento"
+          [(ngModel)]="nuovaAgenzia.stato"
+          class="form-input"
+          placeholder="Seleziona stato"
+          optionLabel="label"
+          optionValue="value"
+          [appendTo]="'body'"
+        ></p-select>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Annulla"
+        icon="pi pi-times"
+        severity="secondary"
+        (click)="annullaInserimento()"
+      ></button>
+      <button
+        pButton
+        label="Salva"
+        icon="pi pi-check"
+        severity="primary"
+        (click)="salvaInserimento()"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</div>
