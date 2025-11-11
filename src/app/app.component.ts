@@ -53,7 +53,8 @@ export class AppComponent {
   agenziaInModifica: Agenzia | null = null;
   agenziaOriginale: Agenzia | null = null;
   dialogInserisciVisibile = false;
-  nuovaAgenzia: Agenzia = this.inizializzaNuovaAgenzia();
+  erroreCodiceModifica = false;
+  messaggioErroreModifica = "";
 
   stati = [
     { label: "Tutti", value: "" },
@@ -117,6 +118,9 @@ export class AppComponent {
     },
   ];
 
+  // Inicializar después de que el array agenzie esté definido
+  nuovaAgenzia: Agenzia = this.inizializzaNuovaAgenzia();
+
   get agenzieFiltrate(): Agenzia[] {
     const gf = this.globalFilter.toLowerCase();
     return this.agenzie.filter(
@@ -163,7 +167,11 @@ export class AppComponent {
   }
 
   apriDialogModifica(a: Agenzia) {
-    // Creiamo una copia dell'agenzia per la modifica
+    // Limpiar errores previos
+    this.erroreCodiceModifica = false;
+    this.messaggioErroreModifica = "";
+
+    // Creare una copia dell'agenzia per la modifica
     this.agenziaOriginale = a;
     this.agenziaInModifica = { ...a };
     this.dialogModificaVisibile = true;
@@ -171,10 +179,26 @@ export class AppComponent {
 
   salvaModifica() {
     if (this.agenziaInModifica && this.agenziaOriginale) {
-      // Troviamo l'indice dell'agenzia originale nell'array
+      // Validar que el código no sea duplicado
+      if (
+        this.codiceDuplicato(
+          this.agenziaInModifica.codice,
+          this.agenziaOriginale
+        )
+      ) {
+        this.erroreCodiceModifica = true;
+        this.messaggioErroreModifica = `Il codice ${this.agenziaInModifica.codice} è già utilizzato da un'altra agenzia.`;
+        return; // No guardar si hay error
+      }
+
+      // Reset error state
+      this.erroreCodiceModifica = false;
+      this.messaggioErroreModifica = "";
+
+      // Trovare l'indice dell'agenzia originale nell'array
       const index = this.agenzie.findIndex((a) => a === this.agenziaOriginale);
       if (index !== -1) {
-        // Sostituiamo l'agenzia originale con quella modificata
+        // Sostituire l'agenzia originale con quella modificata
         this.agenzie[index] = { ...this.agenziaInModifica };
       }
     }
@@ -189,15 +213,52 @@ export class AppComponent {
     this.dialogModificaVisibile = false;
     this.agenziaInModifica = null;
     this.agenziaOriginale = null;
+    // Limpiar errores
+    this.erroreCodiceModifica = false;
+    this.messaggioErroreModifica = "";
   }
 
   elimina(a: Agenzia) {
     this.agenzie = this.agenzie.filter((x) => x !== a);
   }
 
+  // Genera el próximo ID disponible automáticamente
+  generaProssimoCodice(): number {
+    if (!this.agenzie || this.agenzie.length === 0) {
+      return 1;
+    }
+    const maxCodice = Math.max(...this.agenzie.map((a) => a.codice));
+    return maxCodice + 1;
+  }
+
+  // Verifica se un código ya existe (excluyendo la agencia especificada)
+  codiceDuplicato(codice: number, agenziaEsclusa?: Agenzia): boolean {
+    return this.agenzie.some(
+      (a) => a.codice === codice && a !== agenziaEsclusa
+    );
+  }
+
+  // Validación en tiempo real del código durante la modificación
+  validaCodiceModifica() {
+    if (this.agenziaInModifica && this.agenziaOriginale) {
+      if (
+        this.codiceDuplicato(
+          this.agenziaInModifica.codice,
+          this.agenziaOriginale
+        )
+      ) {
+        this.erroreCodiceModifica = true;
+        this.messaggioErroreModifica = `Il codice ${this.agenziaInModifica.codice} è già utilizzato da un'altra agenzia.`;
+      } else {
+        this.erroreCodiceModifica = false;
+        this.messaggioErroreModifica = "";
+      }
+    }
+  }
+
   inizializzaNuovaAgenzia(): Agenzia {
     return {
-      codice: 0,
+      codice: 0, // Inicializamos con 0, se asignará el correcto al abrir el diálogo
       denominazione: "",
       dataNomina: "",
       stato: "Attiva",
@@ -206,15 +267,15 @@ export class AppComponent {
 
   apriDialogInserisci() {
     this.nuovaAgenzia = this.inizializzaNuovaAgenzia();
+    // Asegurar que el código esté actualizado al momento de abrir el diálogo
+    this.nuovaAgenzia.codice = this.generaProssimoCodice();
     this.dialogInserisciVisibile = true;
   }
 
   salvaInserimento() {
-    if (
-      this.nuovaAgenzia.codice &&
-      this.nuovaAgenzia.denominazione &&
-      this.nuovaAgenzia.dataNomina
-    ) {
+    if (this.nuovaAgenzia.denominazione && this.nuovaAgenzia.dataNomina) {
+      // Asegurar que el código sea único (regenerar si es necesario)
+      this.nuovaAgenzia.codice = this.generaProssimoCodice();
       // Converti la data in formato stringa se necessario
       let dataNominaStringa = this.nuovaAgenzia.dataNomina;
       if (typeof dataNominaStringa !== "string") {

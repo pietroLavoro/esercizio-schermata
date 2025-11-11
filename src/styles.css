@@ -158,3 +158,40 @@ body {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   outline: none;
 }
+
+/* Estilo para campos generados automáticamente */
+::ng-deep .auto-generated-field {
+  background-color: #f9fafb !important;
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+  font-style: italic;
+}
+
+::ng-deep .auto-generated-field:focus {
+  border-color: #d1d5db !important;
+  box-shadow: none !important;
+}
+
+/* Estilos para validación de errores */
+::ng-deep .input-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+::ng-deep .input-error:focus {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.error-message i {
+  font-size: 12px;
+}

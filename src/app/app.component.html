@@ -180,7 +180,13 @@
             type="number"
             [(ngModel)]="a.codice"
             class="form-input"
+            [class.input-error]="erroreCodiceModifica"
+            (ngModelChange)="validaCodiceModifica()"
           />
+          <div *ngIf="erroreCodiceModifica" class="error-message">
+            <i class="pi pi-exclamation-triangle"></i>
+            {{ messaggioErroreModifica }}
+          </div>
         </div>
 
         <div class="form-group">
@@ -206,7 +212,7 @@
         <div class="form-group">
           <label class="form-label">Stato:</label>
           <p-select
-            [options]="stati"
+            [options]="statiInserimento"
             [(ngModel)]="a.stato"
             class="form-input"
             placeholder="Seleziona stato"
@@ -249,13 +255,14 @@
   >
     <div class="form-container">
       <div class="form-group">
-        <label class="form-label">Codice:</label>
+        <label class="form-label">Codice (Assegnato automaticamente):</label>
         <input
           pInputText
           type="number"
           [(ngModel)]="nuovaAgenzia.codice"
-          class="form-input"
-          placeholder="Inserisci codice"
+          class="form-input auto-generated-field"
+          [readonly]="true"
+          placeholder="Generato automaticamente"
         />
       </div>
 
