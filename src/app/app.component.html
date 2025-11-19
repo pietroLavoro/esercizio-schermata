@@ -143,20 +143,43 @@
     <div class="primes-dialog">
       <div class="form-group">
         <label class="form-label">Número a verificar</label>
-        <input pInputText type="number" [(ngModel)]="numeroDaVerificar" class="form-input" />
+        <input
+          pInputText
+          type="number"
+          [(ngModel)]="numeroDaVerificar"
+          class="form-input"
+        />
       </div>
 
-      <div style="display:flex; gap:0.75rem; margin-top:0.5rem;">
-        <button pButton label="Comprobar" (click)="controllaPrimo()" class="p-button-sm p-button-primary"></button>
-        <button pButton label="Mostrar primos hasta 1000" (click)="mostraTuttiPrimi()" class="p-button-sm p-button-secondary"></button>
+      <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem">
+        <button
+          pButton
+          label="Comprobar"
+          (click)="controllaPrimo()"
+          class="p-button-sm p-button-primary"
+        ></button>
+        <button
+          pButton
+          label="Mostrar primos hasta 1000"
+          (click)="mostraTuttiPrimi()"
+          class="p-button-sm p-button-secondary"
+        ></button>
       </div>
 
-      <div *ngIf="esitoPrimo !== null" style="margin-top:1rem; font-weight:600">{{ esitoPrimo }}</div>
+      <div
+        *ngIf="esitoPrimo !== null"
+        style="margin-top: 1rem; font-weight: 600"
+      >
+        {{ esitoPrimo }}
+      </div>
 
-      <div *ngIf="primiFino1000?.length" style="margin-top:1rem; max-height:200px; overflow:auto;">
+      <div
+        *ngIf="primiFino1000?.length"
+        style="margin-top: 1rem; max-height: 200px; overflow: auto"
+      >
         <h4>Primos (2..1000)</h4>
         <div *ngFor="let row of primiFino1000Rows">
-          <div>{{ row.join(' ') }}</div>
+          <div>{{ row.join(" ") }}</div>
         </div>
       </div>
     </div>
@@ -362,4 +385,14 @@
       ></button>
     </ng-template>
   </p-dialog>
+
+  <!-- Botón flotante para dark mode (abajo a la derecha) -->
+  <button
+    pButton
+    [icon]="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"
+    class="dark-mode-toggle"
+    [pTooltip]="isDarkMode ? 'Modo claro' : 'Modo oscuro'"
+    tooltipPosition="left"
+    (click)="toggleDarkMode()"
+  ></button>
 </div>

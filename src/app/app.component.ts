@@ -61,6 +61,7 @@ export class AppComponent {
   primiFino1000Rows: number[][] = [];
   erroreCodiceModifica = false;
   messaggioErroreModifica = "";
+  isDarkMode = false;
 
   stati = [
     { label: "Tutti", value: "" },
@@ -126,6 +127,26 @@ export class AppComponent {
 
   // Inicializar después de que el array agenzie esté definido
   nuovaAgenzia: Agenzia = this.inizializzaNuovaAgenzia();
+
+  ngOnInit() {
+    // Cargar tema guardado del localStorage
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      this.isDarkMode = true;
+      document.body.classList.add("dark-mode");
+    }
+  }
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }
 
   get agenzieFiltrate(): Agenzia[] {
     const gf = this.globalFilter.toLowerCase();
