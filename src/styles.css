@@ -1,46 +1,54 @@
 /* Stili globali */
 @import "primeicons/primeicons.css";
 
+/* Modo claro por defecto */
 :root {
-  /* Light theme (default) */
-  --bg-primary: #f8f9fa;
-  --bg-secondary: #ffffff;
-  --text-primary: #1f2937;
-  --text-secondary: #374151;
-  --border-color: #e5e7eb;
-  --border-light: #f3f4f6;
-  --hover-bg: #f9fafb;
-  --shadow: rgba(0, 0, 0, 0.1);
+  --page-bg: #f5f7fb;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+
+  --table-header-bg: #f9fafb;
+  --table-row-bg: #ffffff;
+  --table-row-alt-bg: #f3f4f6;
+
+  --text-color: #111827;
+  --muted-text-color: #6b7280;
+
   --input-bg: #ffffff;
   --input-border: #d1d5db;
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
+/* Modo oscuro */
 body.dark-mode {
-  /* Dark theme - colores más suaves y balanceados */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --border-color: #334155;
-  --border-light: #475569;
-  --hover-bg: #334155;
-  --shadow: rgba(0, 0, 0, 0.5);
-  --input-bg: #1e293b;
-  --input-border: #475569;
+  --page-bg: #020617;
+  --card-bg: #020617;
+  --card-border: #1f2937;
+
+  --table-header-bg: #0b1120;
+  --table-row-bg: #020617;
+  --table-row-alt-bg: #020617;
+
+  --text-color: #e5e7eb;
+  --muted-text-color: #9ca3af;
+
+  --input-bg: #0b1120;
+  --input-border: #374151;
+  --shadow: rgba(0, 0, 0, 0.7);
 }
 
 html,
 body {
   height: 100%;
-  background: var(--bg-primary);
+  background: var(--page-bg);
 }
 
 body {
   margin: 0;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--page-bg);
+  color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -48,7 +56,7 @@ body {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  background: var(--bg-primary);
+  background: var(--page-bg);
   min-height: 100vh;
 }
 
@@ -65,7 +73,7 @@ body {
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
-  color: var(--text-primary);
+  color: var(--text-color);
   letter-spacing: -0.025em;
 }
 
@@ -119,67 +127,234 @@ body {
 }
 
 .filters {
-  background: var(--bg-secondary);
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--card-border);
   box-shadow: 0 1px 3px 0 var(--shadow), 0 1px 2px 0 var(--shadow);
   margin-bottom: 16px;
 }
 
-/* Estilos para la tabla que coincidan con la imagen de referencia */
+/* Estilos para la tabla - Modo claro */
 ::ng-deep .p-datatable {
-  background: var(--bg-secondary) !important;
+  background: var(--card-bg) !important;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 1px 3px 0 var(--shadow), 0 1px 2px 0 var(--shadow);
 }
 
 ::ng-deep .p-datatable .p-datatable-wrapper {
-  background: var(--bg-secondary) !important;
+  background: var(--card-bg) !important;
+}
+
+::ng-deep .p-datatable .p-datatable-table {
+  background: var(--card-bg) !important;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr {
+  background: var(--table-header-bg) !important;
 }
 
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  background: var(--hover-bg) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-secondary) !important;
+  background: var(--table-header-bg) !important;
+  border-color: var(--card-border) !important;
+  color: var(--muted-text-color) !important;
   font-weight: 600;
   padding: 12px 16px;
 }
 
+::ng-deep .p-datatable .p-datatable-tbody {
+  background: var(--table-row-bg) !important;
+}
+
 ::ng-deep .p-datatable .p-datatable-tbody > tr {
-  background: var(--bg-secondary) !important;
-  border-color: var(--border-light) !important;
+  background: var(--table-row-bg) !important;
+  border-color: var(--card-border) !important;
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
-  background: var(--hover-bg) !important;
+  background: var(--table-row-alt-bg) !important;
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
-  color: var(--text-primary) !important;
-  border-color: var(--border-light) !important;
+  background: var(--table-row-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--card-border) !important;
   padding: 12px 16px;
 }
 
+::ng-deep .p-datatable .p-datatable-tbody > tr:hover > td {
+  background: var(--table-row-alt-bg) !important;
+}
+
+/* ========== Dark Mode: Tabla PrimeNG ========== */
+body.dark-mode ::ng-deep .p-datatable {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-wrapper {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-table {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background-color: #0b1120 !important;
+  color: #e5e7eb !important;
+  border-color: #1f2937 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-tbody {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+  border-color: #111827 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-tbody > tr:nth-child(even) > td {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #111827 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable .p-datatable-tbody > tr:hover > td {
+  background-color: #111827 !important;
+}
+
+/* Forzar background en elementos table nativos dentro de PrimeNG */
+body.dark-mode ::ng-deep .p-datatable table {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable table tbody {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable table tbody tr {
+  background-color: #020617 !important;
+}
+
+body.dark-mode ::ng-deep .p-datatable table tbody tr td {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+}
+
 ::ng-deep .p-paginator {
-  background: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-primary) !important;
+  background: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  color: var(--text-color) !important;
 }
 
 ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
-  color: var(--text-primary) !important;
+  color: var(--text-color) !important;
 }
 
 ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  background: var(--hover-bg) !important;
+  background: var(--table-header-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* ========== Dark Mode: Paginador ========== */
+body.dark-mode ::ng-deep .p-paginator {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+  border-top: 1px solid #1f2937 !important;
+}
+
+body.dark-mode ::ng-deep .p-paginator .p-paginator-page,
+body.dark-mode ::ng-deep .p-paginator .p-paginator-first,
+body.dark-mode ::ng-deep .p-paginator .p-paginator-prev,
+body.dark-mode ::ng-deep .p-paginator .p-paginator-next,
+body.dark-mode ::ng-deep .p-paginator .p-paginator-last {
+  background-color: #020617 !important;
+  border-color: #1f2937 !important;
+  color: #e5e7eb !important;
+}
+
+body.dark-mode ::ng-deep .p-paginator .p-paginator-page.p-highlight {
+  background-color: #0b1120 !important;
+  border-color: #1f2937 !important;
+}
+
+/* Forzar estilos en toda la estructura de la tabla */
+::ng-deep .p-datatable-wrapper table {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .p-datatable-wrapper table tbody {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .p-datatable-wrapper table tbody tr {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .p-datatable-wrapper table tbody tr td {
+  background: var(--bg-secondary) !important;
+}
+
+/* Estilos específicos usando la clase custom-table */
+::ng-deep .custom-table {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .custom-table table {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .custom-table .p-datatable-wrapper {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .custom-table tbody {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .custom-table tbody tr {
+  background: var(--bg-secondary) !important;
+}
+
+::ng-deep .custom-table tbody tr td {
+  background: var(--bg-secondary) !important;
   color: var(--text-primary) !important;
 }
 
-/* Dark mode: ajustar tags y badges */
-body.dark-mode ::ng-deep .p-tag {
-  filter: brightness(0.9);
+::ng-deep .custom-table thead tr th {
+  background: var(--hover-bg) !important;
+  color: var(--text-secondary) !important;
+}
+
+/* ========== Badges de estado ========== */
+::ng-deep .p-tag.p-tag-success {
+  background: rgba(34, 197, 94, 0.1) !important;
+  color: #22c55e !important;
+}
+
+body.dark-mode ::ng-deep .p-tag.p-tag-success {
+  background: rgba(34, 197, 94, 0.25) !important;
+  color: #4ade80 !important;
+}
+
+::ng-deep .p-tag.p-tag-danger {
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #ef4444 !important;
+}
+
+body.dark-mode ::ng-deep .p-tag.p-tag-danger {
+  background: rgba(239, 68, 68, 0.25) !important;
+  color: #fecaca !important;
 }
 
 /* Dark mode: ajustar botones de acción en tabla */
@@ -200,7 +375,7 @@ body.dark-mode ::ng-deep .p-button.p-button-text:hover {
 
 .filter-label {
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--muted-text-color);
   font-size: 14px;
   margin-bottom: 4px;
 }
@@ -278,7 +453,7 @@ body.dark-mode .dark-mode-toggle:hover {
   border-radius: 6px;
   padding: 8px 12px;
   background: var(--input-bg);
-  color: var(--text-primary);
+  color: var(--text-color);
   transition: all 0.2s ease-in-out;
 }
 
@@ -290,29 +465,85 @@ body.dark-mode .dark-mode-toggle:hover {
   outline: none;
 }
 
-/* Dark mode: PrimeNG dropdowns y overlays */
-body.dark-mode ::ng-deep .p-select-overlay,
-body.dark-mode ::ng-deep .p-datepicker,
-body.dark-mode ::ng-deep .p-dialog {
-  background: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
+/* ========== Dark Mode: PrimeNG Inputs ========== */
+
+/* Inputs de texto: pInputText */
+body.dark-mode ::ng-deep .p-inputtext {
+  background-color: #020617 !important;
+  border-color: #1f2937 !important;
+  color: #e5e7eb !important;
 }
 
-body.dark-mode ::ng-deep .p-select-option,
+body.dark-mode ::ng-deep .p-inputtext::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Dropdowns: p-select */
+body.dark-mode ::ng-deep .p-select {
+  background-color: #020617 !important;
+  border-color: #1f2937 !important;
+  color: #e5e7eb !important;
+}
+
+body.dark-mode ::ng-deep .p-select .p-select-label {
+  color: #e5e7eb !important;
+}
+
+body.dark-mode ::ng-deep .p-select .p-select-dropdown {
+  color: #9ca3af !important;
+}
+
+body.dark-mode ::ng-deep .p-select-overlay {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+  border-color: #1f2937 !important;
+}
+
+body.dark-mode ::ng-deep .p-select-option {
+  color: #e5e7eb !important;
+}
+
+body.dark-mode ::ng-deep .p-select-option:hover {
+  background-color: #0b1120 !important;
+}
+
+/* Calendario: p-datepicker */
+body.dark-mode ::ng-deep .p-datepicker input {
+  background-color: #020617 !important;
+  border-color: #1f2937 !important;
+  color: #e5e7eb !important;
+}
+
+body.dark-mode ::ng-deep .p-datepicker {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+  border-color: #1f2937 !important;
+}
+
 body.dark-mode ::ng-deep .p-datepicker table td {
-  color: var(--text-primary) !important;
+  color: #e5e7eb !important;
 }
 
-body.dark-mode ::ng-deep .p-select-option:hover,
 body.dark-mode ::ng-deep .p-datepicker table td:hover {
-  background: var(--hover-bg) !important;
+  background-color: #0b1120 !important;
+}
+
+body.dark-mode ::ng-deep .p-datepicker .p-datepicker-header {
+  background-color: #0b1120 !important;
+  border-color: #1f2937 !important;
+}
+
+/* Diálogos */
+body.dark-mode ::ng-deep .p-dialog {
+  background: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
 }
 
 body.dark-mode ::ng-deep .p-dialog .p-dialog-header,
 body.dark-mode ::ng-deep .p-dialog .p-dialog-content {
-  background: var(--bg-secondary) !important;
-  color: var(--text-primary) !important;
-  border-color: var(--border-color) !important;
+  background: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--card-border) !important;
 }
 
 /* Estilo para campos generados automáticamente */

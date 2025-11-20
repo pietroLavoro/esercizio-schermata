@@ -298,3 +298,38 @@
   padding: 1.5rem;
   border-top: 1px solid #e5e7eb;
 }
+
+/* ========================================
+   DARK MODE - FORZADO CON MÁXIMA PRIORIDAD
+   ======================================== */
+
+body.dark-mode .p-datatable,
+body.dark-mode .p-datatable .p-datatable-wrapper,
+body.dark-mode .p-datatable .p-datatable-table,
+body.dark-mode .p-datatable table {
+  background-color: #020617 !important;
+}
+
+body.dark-mode .p-datatable .p-datatable-tbody,
+body.dark-mode .p-datatable table tbody {
+  background-color: #020617 !important;
+}
+
+body.dark-mode .p-datatable .p-datatable-tbody > tr,
+body.dark-mode .p-datatable table tbody tr {
+  background-color: #020617 !important;
+}
+
+body.dark-mode .p-datatable .p-datatable-tbody > tr > td,
+body.dark-mode .p-datatable table tbody tr td {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+  border-color: #111827 !important;
+}
+
+body.dark-mode .p-datatable .p-datatable-thead > tr > th,
+body.dark-mode .p-datatable table thead tr th {
+  background-color: #0b1120 !important;
+  color: #e5e7eb !important;
+  border-color: #1f2937 !important;
+}

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewEncapsulation } from "@angular/core";
 import { CommonModule, DatePipe } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
@@ -39,6 +39,7 @@ interface Agenzia {
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
   providers: [DatePipe],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   titolo = "Elenco Agenzie";

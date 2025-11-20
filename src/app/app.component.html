@@ -20,10 +20,15 @@
 
   <p-table
     [value]="agenzieFiltrate"
-    [tableStyle]="{ 'min-width': '64rem' }"
+    [tableStyle]="{
+      'min-width': '64rem',
+      background: isDarkMode ? '#1a1f2e' : '#ffffff'
+    }"
     [paginator]="true"
     [rows]="8"
     [sortMode]="'multiple'"
+    styleClass="custom-table"
+    [style]="{ background: isDarkMode ? '#1a1f2e' : '#ffffff' }"
   >
     <ng-template pTemplate="caption">
       <div class="filters">
